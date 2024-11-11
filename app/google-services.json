@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "755589019875",
+    "project_id": "aplicativo-compose-c6061",
+    "storage_bucket": "aplicativo-compose-c6061.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755589019875:android:be940f4a86449b022f2dd6",
+        "android_client_info": {
+          "package_name": "com.positivo.aplicativojetpackcompose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXNneZA0BaXqsg0t8ebozOAtvnsWL3GXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
