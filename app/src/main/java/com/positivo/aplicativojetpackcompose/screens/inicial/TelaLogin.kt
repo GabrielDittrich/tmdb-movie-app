@@ -1,4 +1,4 @@
-package com.positivo.aplicativojetpackcompose.screens
+package com.positivo.aplicativojetpackcompose.screens.inicial
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
-import com.positivo.aplicativojetpackcompose.ui.theme.AplicativoJetpackComposeTheme
 
 @Composable
 fun TelaLogin(navController: NavController) {

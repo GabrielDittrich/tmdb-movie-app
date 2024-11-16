@@ -1,4 +1,4 @@
-package com.positivo.aplicativojetpackcompose.screens
+package com.positivo.aplicativojetpackcompose.screens.inicial
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
