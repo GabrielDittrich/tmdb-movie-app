@@ -21,24 +21,26 @@ import com.positivo.aplicativojetpackcompose.screens.principal.PerfilScreen
 
 @Composable
 fun HomeNavigation() {
-    val navController = rememberNavController()
-    val currentRoute = currentRoute(navController)
+
+
+    val navController2 = rememberNavController()
+    val currentRoute = currentRoute(navController2)
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController, currentRoute)
+            BottomNavigationBar(navController2, currentRoute)
         }
     ) { innerPadding ->
         NavHost(
-            navController = navController,
+            navController = navController2,
             startDestination = bottomNavItems[0].screenRoute, // Define a primeira tela
             modifier = Modifier.padding(innerPadding)
         ) {
             // Defina as rotas para cada tela
-            composable(bottomNavItems[0].screenRoute) { HomeScreen(navController) }
-            composable(bottomNavItems[1].screenRoute) { BuscaScreen(navController) }
-            composable(bottomNavItems[2].screenRoute) { PerfilScreen(navController) }
-            composable(bottomNavItems[3].screenRoute) { FavoritosScreen(navController) }
+            composable(bottomNavItems[0].screenRoute) { HomeScreen(navController2) }
+            composable(bottomNavItems[1].screenRoute) { BuscaScreen(navController2) }
+            composable(bottomNavItems[2].screenRoute) { PerfilScreen(navController2) }
+            composable(bottomNavItems[3].screenRoute) { FavoritosScreen(navController2) }
         }
     }
 }

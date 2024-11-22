@@ -79,9 +79,12 @@ fun TelaLogin(navController: NavController) {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Login bem-sucedido
-                                navController.navigate("home") // Exemplo de navegação para a tela "home"
+                                navController.navigate("home_navigation") {
+                                    // Impede o usuário de voltar para a tela de login
+                                    popUpTo("login") { inclusive = true }
+                                    launchSingleTop = true
+                                }
                             } else {
-                                // Mostra o erro
                                 erro = task.exception?.localizedMessage ?: "Erro desconhecido"
                             }
                         }
