@@ -4,14 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.app.myapplication.HomeNavigation
 import com.google.firebase.auth.FirebaseAuth
 import com.positivo.aplicativojetpackcompose.screens.inicial.TelaCadastro
 import com.positivo.aplicativojetpackcompose.screens.inicial.TelaLogin
 import com.positivo.aplicativojetpackcompose.screens.inicial.TelaMenu
+import com.positivo.aplicativojetpackcompose.screens.principal.DetalhesScreen
 
 @Composable
 fun FilmeNavigation(navController: NavHostController, auth: FirebaseAuth) {
@@ -30,5 +33,18 @@ fun FilmeNavigation(navController: NavHostController, auth: FirebaseAuth) {
         composable("cadastro") { TelaCadastro(navController) }
         composable("login") { TelaLogin(navController) }
         composable("home_navigation") { HomeNavigation() }
+
+        // Adicionando a rota de detalhes
+        composable(
+            route = "detalhes/{movieTitle}",
+            arguments = listOf(
+                navArgument("movieTitle") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+            val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: "Filme"
+            DetalhesScreen(movieTitle = movieTitle)
+        }
     }
 }
