@@ -29,11 +29,17 @@ import com.positivo.aplicativojetpackcompose.R
 @Composable
 fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = viewModel()) {
     val movies = homeViewModel.movies.value
+    val launchMovies = homeViewModel.launchMovies.value
+    val topRatedMovies = homeViewModel.topRatedMovies.value
+    val nowPlayingMovies = homeViewModel.nowPlayingMovies.value
 
-    // Faça a requisição para buscar os filmes populares
+    // Faça a requisição para buscar os filmes
     LaunchedEffect(Unit) {
         val apiKey = "befc024706c98870f5f437064ebb0a18"
         homeViewModel.getPopularMovies(apiKey)
+        homeViewModel.getLaunchMovies(apiKey)
+        homeViewModel.getTopRatedMovies(apiKey)
+        homeViewModel.getNowPlayingMovies(apiKey)
     }
 
     LazyColumn(
@@ -52,23 +58,33 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
             )
         }
 
-        // Você pode adicionar mais categorias aqui, por exemplo:
-        // item {
-        //     CategorySection(
-        //         categoryName = "Lançamentos",
-        //         items = launchMovies, // Dados fictícios
-        //         onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
-        //     )
-        // }
+        // Seção de Filmes de Lançamento
+        item {
+            CategorySection(
+                categoryName = "Lançamentos",
+                items = launchMovies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
+                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+            )
+        }
+
+        // Seção de Filmes Mais Bem Avaliados
+        item {
+            CategorySection(
+                categoryName = "Melhores Avaliados",
+                items = topRatedMovies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
+                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+            )
+        }
     }
 }
+
 
 @Composable
 fun HeaderSection() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)  // Ajuste a altura do banner
+            .height(150.dp)  // Ajuste a altura do banner
     ) {
         Image(
             painter = painterResource(R.drawable.catalogo), // Imagem de catálogo
