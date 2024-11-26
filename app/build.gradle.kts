@@ -76,4 +76,20 @@ dependencies {
 
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation (libs.coil.compose)
+
+    implementation (libs.ui)
+    implementation (libs.material3)
+
+    // Dependência para Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
+    // Dependência para OkHttp
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+
+    // Dependência para Coil (para carregar as imagens)
+    implementation(libs.coil.compose.v210)
 }
