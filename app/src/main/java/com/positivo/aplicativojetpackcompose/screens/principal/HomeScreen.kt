@@ -40,26 +40,38 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Seção de Destaque
         item { HeaderSection() }
-        items(movies) { movie ->
-            MovieCard(
-                imageUrl = "https://image.tmdb.org/t/p/w500${movie.poster_path}",
-                onClick = { navController.navigate("detalhes/${movie.id}") }
+
+        // Seção de Filmes Populares
+        item {
+            CategorySection(
+                categoryName = "Filmes Populares",
+                items = movies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
+                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
             )
         }
+
+        // Você pode adicionar mais categorias aqui, por exemplo:
+        // item {
+        //     CategorySection(
+        //         categoryName = "Lançamentos",
+        //         items = launchMovies, // Dados fictícios
+        //         onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+        //     )
+        // }
     }
 }
-
 
 @Composable
 fun HeaderSection() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(300.dp)  // Ajuste a altura do banner
     ) {
         Image(
-            painter = painterResource(R.drawable.catalogo), // Exemplo de recurso local
+            painter = painterResource(R.drawable.catalogo), // Imagem de catálogo
             contentDescription = "Banner principal",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -78,11 +90,11 @@ fun HeaderSection() {
         Text(
             text = "Destaques do Dia",
             color = Color.White,
-            fontSize = 24.sp,
+            fontSize = 28.sp,  // Tamanho da fonte ajustado
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(16.dp)
+                .padding(20.dp)  // Mais espaçamento
         )
     }
 }
@@ -100,9 +112,9 @@ fun CategorySection(
     ) {
         Text(
             text = categoryName,
-            fontSize = 18.sp,
+            fontSize = 22.sp,  // Tamanho do título
             fontWeight = FontWeight.Bold,
-            color = Color.Black,
+            color = Color.Black,  // Cor mais nítida para o título
             modifier = Modifier.padding(bottom = 8.dp)
         )
         LazyRow(
@@ -118,11 +130,12 @@ fun CategorySection(
 @Composable
 fun MovieCard(imageUrl: String, onClick: () -> Unit) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),  // Aumentar o arredondamento dos cantos
         modifier = Modifier
             .width(120.dp)
             .height(180.dp)
             .clickable { onClick() }
+            .padding(4.dp)  // Espaçamento interno dos cartões
     ) {
         Image(
             painter = rememberImagePainter(data = imageUrl),
