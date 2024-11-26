@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,33 +21,35 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.positivo.aplicativojetpackcompose.R
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    val categories = listOf(
-        "Ação" to listOf("https://linkimagem1.com", "https://linkimagem2.com"),
-        "Comédia" to listOf("https://linkimagem3.com", "https://linkimagem4.com")
-    )
+fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = viewModel()) {
+    val movies = homeViewModel.movies.value
+
+    // Faça a requisição para buscar os filmes populares
+    LaunchedEffect(Unit) {
+        val apiKey = "befc024706c98870f5f437064ebb0a18"
+        homeViewModel.getPopularMovies(apiKey)
+    }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item { HeaderSection() }
-        categories.forEach { (categoryName, items) ->
-            item {
-                CategorySection(
-                    categoryName = categoryName,
-                    items = items,
-                    onItemClick = { movieTitle -> navController.navigate("detalhes/$movieTitle") }
-                )
-            }
+        items(movies) { movie ->
+            MovieCard(
+                imageUrl = "https://image.tmdb.org/t/p/w500${movie.poster_path}",
+                onClick = { navController.navigate("detalhes/${movie.id}") }
+            )
         }
     }
 }
+
 
 @Composable
 fun HeaderSection() {
@@ -83,6 +86,7 @@ fun HeaderSection() {
         )
     }
 }
+
 @Composable
 fun CategorySection(
     categoryName: String,
@@ -128,4 +132,3 @@ fun MovieCard(imageUrl: String, onClick: () -> Unit) {
         )
     }
 }
-
