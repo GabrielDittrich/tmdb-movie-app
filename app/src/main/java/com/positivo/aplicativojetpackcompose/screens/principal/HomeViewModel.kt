@@ -21,14 +21,19 @@ class HomeViewModel : ViewModel() {
     private val _nowPlayingMovies = mutableStateOf<List<Movie>>(emptyList())  // Filmes em exibição
     val nowPlayingMovies: State<List<Movie>> = _nowPlayingMovies
 
-    // Função para buscar filmes populares
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: State<Boolean> = _isLoading
+
     fun getPopularMovies(apiKey: String) {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val response = RetrofitInstance.apiService.getPopularMovies(apiKey)
                 _movies.value = response.results
             } catch (e: Exception) {
-                // Trate erros de rede aqui, se necessário
+                // Trate o erro
+            } finally {
+                _isLoading.value = false
             }
         }
     }

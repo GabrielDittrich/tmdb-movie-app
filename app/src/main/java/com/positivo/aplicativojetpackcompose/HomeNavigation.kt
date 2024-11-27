@@ -1,5 +1,6 @@
 package com.app.myapplication
 
+import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -10,11 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.positivo.aplicativojetpackcompose.screens.principal.BuscaScreen
+import com.positivo.aplicativojetpackcompose.screens.principal.DetalhesScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.FavoritosScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.HomeScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.PerfilScreen
@@ -47,12 +51,25 @@ fun HomeNavigation() {
             composable(bottomNavItems[3].screenRoute) {
                 FavoritosScreen(navController2)
             }
+            // No NavHost
+            composable(
+                route = "detalhes/{id}/{title}/{poster_path}/{overview}",
+                arguments = listOf(
+                    navArgument("id") { type = NavType.IntType },
+                    navArgument("title") { type = NavType.StringType },
+                    navArgument("poster_path") { type = NavType.StringType },
+                    navArgument("overview") { type = NavType.StringType }
+                )
+            )
+            { backStackEntry ->
+                val id = backStackEntry.arguments?.getInt("id") ?: 0
+                val title = backStackEntry.arguments?.getString("title") ?: "Título não encontrado"
+                val posterPath = backStackEntry.arguments?.getString("poster_path") ?: ""
+                DetalhesScreen(movieId = id, movieTitle = title, posterPath = posterPath)
+            }
         }
     }
 }
-
-
-
 @Composable
 private fun currentRoute(navController: NavHostController): String? {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -83,3 +100,4 @@ fun BottomNavigationBar(
         }
     }
 }
+

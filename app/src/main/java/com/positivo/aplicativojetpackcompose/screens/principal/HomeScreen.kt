@@ -1,5 +1,6 @@
 package com.positivo.aplicativojetpackcompose.screens.principal
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.positivo.aplicativojetpackcompose.R
+import com.positivo.aplicativojetpackcompose.date.Movie
 
 @Composable
 fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = viewModel()) {
@@ -33,7 +35,7 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
     val topRatedMovies = homeViewModel.topRatedMovies.value
     val nowPlayingMovies = homeViewModel.nowPlayingMovies.value
 
-    // Faça a requisição para buscar os filmes
+    // Requisição para buscar os filmes
     LaunchedEffect(Unit) {
         val apiKey = "befc024706c98870f5f437064ebb0a18"
         homeViewModel.getPopularMovies(apiKey)
@@ -53,8 +55,12 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
         item {
             CategorySection(
                 categoryName = "Filmes Populares",
-                items = movies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
-                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+                items = movies,
+                onItemClick = { movie ->
+                    val encodedPosterPath = Uri.encode(movie.poster_path)
+                    val encodedOverview = Uri.encode(movie.overview ?: "")  // Codificar a descrição
+                    navController.navigate("detalhes/${movie.id}/${Uri.encode(movie.title)}/$encodedPosterPath/$encodedOverview")
+                }
             )
         }
 
@@ -62,8 +68,12 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
         item {
             CategorySection(
                 categoryName = "Lançamentos",
-                items = launchMovies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
-                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+                items = launchMovies,
+                onItemClick = { movie ->
+                    val encodedPosterPath = Uri.encode(movie.poster_path)
+                    val encodedOverview = Uri.encode(movie.overview ?: "")
+                    navController.navigate("detalhes/${movie.id}/${Uri.encode(movie.title)}/$encodedPosterPath/$encodedOverview")
+                }
             )
         }
 
@@ -71,13 +81,16 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
         item {
             CategorySection(
                 categoryName = "Melhores Avaliados",
-                items = topRatedMovies.map { "https://image.tmdb.org/t/p/w500${it.poster_path}" },
-                onItemClick = { movieUrl -> navController.navigate("detalhes/$movieUrl") }
+                items = topRatedMovies,
+                onItemClick = { movie ->
+                    val encodedPosterPath = Uri.encode(movie.poster_path)
+                    val encodedTitle = Uri.encode(movie.title)
+                    navController.navigate("detalhes/${movie.id}/$encodedTitle/$encodedPosterPath")
+                }
             )
         }
     }
 }
-
 
 @Composable
 fun HeaderSection() {
@@ -118,8 +131,8 @@ fun HeaderSection() {
 @Composable
 fun CategorySection(
     categoryName: String,
-    items: List<String>,
-    onItemClick: (String) -> Unit
+    items: List<Movie>,  // Modificado para usar a lista de objetos Movie
+    onItemClick: (Movie) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -137,7 +150,7 @@ fun CategorySection(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(items) { item ->
-                MovieCard(imageUrl = item, onClick = { onItemClick(item) })
+                MovieCard(imageUrl = "https://image.tmdb.org/t/p/w500${item.poster_path}", onClick = { onItemClick(item) })
             }
         }
     }

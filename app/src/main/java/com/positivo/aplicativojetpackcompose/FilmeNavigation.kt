@@ -33,18 +33,5 @@ fun FilmeNavigation(navController: NavHostController, auth: FirebaseAuth) {
         composable("cadastro") { TelaCadastro(navController) }
         composable("login") { TelaLogin(navController) }
         composable("home_navigation") { HomeNavigation() }
-
-        // Adicionando a rota de detalhes
-        composable(
-            route = "detalhes/{movieTitle}",
-            arguments = listOf(
-                navArgument("movieTitle") {
-                    type = NavType.StringType
-                }
-            )
-        ) { backStackEntry ->
-            val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: "Filme"
-            DetalhesScreen(movieTitle = movieTitle)
-        }
     }
 }

@@ -92,4 +92,9 @@ dependencies {
 
     // Dependência para Coil (para carregar as imagens)
     implementation(libs.coil.compose.v210)
+
+    implementation (libs.androidx.navigation.compose.v271)
+    implementation (libs.gson)
+
+
 }
