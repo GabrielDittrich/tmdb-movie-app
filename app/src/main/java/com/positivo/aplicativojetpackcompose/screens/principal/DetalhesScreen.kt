@@ -2,13 +2,9 @@ package com.positivo.aplicativojetpackcompose.screens.principal
 
 import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,11 +20,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.positivo.aplicativojetpackcompose.date.Movie
 import com.positivo.aplicativojetpackcompose.date.RetrofitInstance
 import com.positivo.aplicativojetpackcompose.date.RetrofitInstance.apiService
-
 
 @Composable
 fun DetalhesScreen(movieId: Int, movieTitle: String, posterPath: String, overview: String) {
@@ -44,20 +38,19 @@ fun DetalhesScreen(movieId: Int, movieTitle: String, posterPath: String, overvie
                 apiKey = "befc024706c98870f5f437064ebb0a18",
                 language = "pt-BR"
             )
-            // Verifique o conteúdo da resposta no log
-            println("Resposta da API: ${response.title}")
             movie.value = response
         } catch (e: Exception) {
-            // Lidar com erros
             println("Erro ao carregar os detalhes do filme: ${e.message}")
         }
     }
 
     movie.value?.let { movie ->
+        val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
+                .verticalScroll(scrollState)
         ) {
             Text(
                 text = movie.title,
@@ -65,14 +58,17 @@ fun DetalhesScreen(movieId: Int, movieTitle: String, posterPath: String, overvie
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+
+            // Ajustando a imagem para o tamanho ideal na tela de detalhes
             Image(
                 painter = rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500${movie.poster_path}"),
                 contentDescription = movie.title,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit, // Ajusta a imagem para caber bem no espaço disponível
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .height(400.dp) // Tamanho ajustado para a imagem no detalhe
             )
+
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Descrição",
@@ -83,7 +79,7 @@ fun DetalhesScreen(movieId: Int, movieTitle: String, posterPath: String, overvie
             Text(
                 text = decodedOverview,
                 fontSize = 16.sp,
-                lineHeight = 24.sp, // Facilita a leitura
+                lineHeight = 24.sp,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             Text(
