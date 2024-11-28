@@ -17,7 +17,7 @@ interface ApiService {
     suspend fun getTopRatedMovies(@Query("api_key") apiKey: String,@Query("language") language: String = "pt-BR" ): MovieResponse
 
     @GET("movie/upcoming")
-    suspend fun getLaunchMovies(@Query("api_key",) apiKey: String): MovieResponse
+    suspend fun getLaunchMovies(@Query("api_key") apiKey: String,@Query("language") language: String = "pt-BR"): MovieResponse
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
