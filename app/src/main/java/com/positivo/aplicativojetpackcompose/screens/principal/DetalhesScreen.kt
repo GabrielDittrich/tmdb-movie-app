@@ -42,11 +42,14 @@ fun DetalhesScreen(movieId: Int, movieTitle: String, posterPath: String, overvie
             val response = apiService.getMovieDetails(
                 movieId,
                 apiKey = "befc024706c98870f5f437064ebb0a18",
-                language = "pt-BR" // Parâmetro de idioma adicionado
+                language = "pt-BR"
             )
+            // Verifique o conteúdo da resposta no log
+            println("Resposta da API: ${response.title}")
             movie.value = response
         } catch (e: Exception) {
-            // Tratar erro
+            // Lidar com erros
+            println("Erro ao carregar os detalhes do filme: ${e.message}")
         }
     }
 

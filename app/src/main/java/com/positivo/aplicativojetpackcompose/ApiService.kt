@@ -8,22 +8,22 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("movie/popular")
-    suspend fun getPopularMovies(@Query("api_key") apiKey: String): MovieResponse
+    suspend fun getPopularMovies(@Query("api_key") apiKey: String,@Query("language") language: String = "pt-BR"): MovieResponse
 
     @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(@Query("api_key") apiKey: String): MovieResponse
+    suspend fun getNowPlayingMovies(@Query("api_key") apiKey: String,@Query("language") language: String = "pt-BR"): MovieResponse
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(@Query("api_key") apiKey: String): MovieResponse
+    suspend fun getTopRatedMovies(@Query("api_key") apiKey: String,@Query("language") language: String = "pt-BR" ): MovieResponse
 
     @GET("movie/upcoming")
-    suspend fun getLaunchMovies(@Query("api_key") apiKey: String): MovieResponse
+    suspend fun getLaunchMovies(@Query("api_key",) apiKey: String): MovieResponse
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String = "pt-BR" // Defina "pt-BR" como padrão, se preferir
+        @Query("language") language: String = "pt-BR", // Defina "pt-BR" como padrão, se preferir
+        @Query("api_key") apiKey: String
     ): Movie
 
 
