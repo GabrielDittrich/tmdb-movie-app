@@ -2,6 +2,7 @@ package com.positivo.aplicativojetpackcompose
 
 import com.positivo.aplicativojetpackcompose.date.Movie
 import com.positivo.aplicativojetpackcompose.date.MovieResponse
+import com.positivo.aplicativojetpackcompose.date.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -26,6 +27,31 @@ interface ApiService {
         @Query("api_key") apiKey: String
     ): Movie
 
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("query") query: String, // A consulta de busca
+        @Query("api_key") apiKey: String, // A chave da API
+        @Query("language") language: String = "pt-BR" // O idioma da resposta
+    ): MovieResponse
+
+    @GET("tv/popular")
+    suspend fun getPopularTvShows(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "pt-BR"
+    ): TvResponse
+
+    @GET("tv/on_the_air")
+    suspend fun getOnAirTvShows(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "pt-BR"
+    ): TvResponse
+
+    @GET("search/tv")
+    suspend fun searchTvShows(
+        @Query("query") query: String,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "pt-BR"
+    ): TvResponse
 
 }
 

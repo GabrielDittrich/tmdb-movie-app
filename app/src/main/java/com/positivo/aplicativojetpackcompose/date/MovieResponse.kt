@@ -12,5 +12,4 @@ data class Movie(
     val poster_path: String,
     @SerializedName("overview") val overview: String,
     @SerializedName("release_date") val releaseDate: String // Certifique-se disso
-
 )

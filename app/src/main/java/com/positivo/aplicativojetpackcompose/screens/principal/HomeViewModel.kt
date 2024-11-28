@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.positivo.aplicativojetpackcompose.date.Movie
 import com.positivo.aplicativojetpackcompose.date.RetrofitInstance
+import com.positivo.aplicativojetpackcompose.date.TvShow
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -23,6 +24,34 @@ class HomeViewModel : ViewModel() {
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
+
+    private val _popularTvShows = mutableStateOf<List<TvShow>>(emptyList())
+    val popularTvShows: State<List<TvShow>> = _popularTvShows
+
+    private val _onAirTvShows = mutableStateOf<List<TvShow>>(emptyList())
+    val onAirTvShows: State<List<TvShow>> = _onAirTvShows
+
+    fun getPopularTvShows(apiKey: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.apiService.getPopularTvShows(apiKey)
+                _popularTvShows.value = response.results
+            } catch (e: Exception) {
+                // Trate erros aqui
+            }
+        }
+    }
+
+    fun getOnAirTvShows(apiKey: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.apiService.getOnAirTvShows(apiKey)
+                _onAirTvShows.value = response.results
+            } catch (e: Exception) {
+                // Trate erros aqui
+            }
+        }
+    }
 
     fun getPopularMovies(apiKey: String) {
         viewModelScope.launch {

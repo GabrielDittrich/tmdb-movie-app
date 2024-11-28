@@ -65,8 +65,15 @@ fun HomeNavigation() {
                 val title = backStackEntry.arguments?.getString("title") ?: "Título não encontrado"
                 val posterPath = backStackEntry.arguments?.getString("poster_path") ?: ""
                 val overview = backStackEntry.arguments?.getString("overview") ?: "Descrição não disponível"
-                DetalhesScreen(movieId = id, movieTitle = title, posterPath = posterPath, overview = overview)
+                DetalhesScreen(
+                    movieId = id,
+                    movieTitle = title,
+                    posterPath = posterPath,
+                    overview = overview,
+                    navController = navController2 // Certifique-se de passar o NavController
+                )
             }
+
         }
     }
 }
