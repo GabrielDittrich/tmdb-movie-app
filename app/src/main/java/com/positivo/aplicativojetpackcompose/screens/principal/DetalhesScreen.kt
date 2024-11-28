@@ -34,7 +34,7 @@ fun DetalhesScreen(
     movieTitle: String,
     posterPath: String,
     overview: String,
-    navController: NavHostController
+    navController: NavController
 ) {
     val decodedPosterPath = Uri.decode(posterPath)
     val decodedOverview = Uri.decode(overview)
