@@ -1,7 +1,9 @@
 package com.positivo.aplicativojetpackcompose
 
+import com.positivo.aplicativojetpackcompose.date.Movie
 import com.positivo.aplicativojetpackcompose.date.MovieResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -16,6 +18,15 @@ interface ApiService {
 
     @GET("movie/upcoming")
     suspend fun getLaunchMovies(@Query("api_key") apiKey: String): MovieResponse
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "pt-BR" // Defina "pt-BR" como padrão, se preferir
+    ): Movie
+
+
 }
 
 

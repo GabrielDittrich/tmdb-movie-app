@@ -60,12 +60,12 @@ fun HomeNavigation() {
                     navArgument("poster_path") { type = NavType.StringType },
                     navArgument("overview") { type = NavType.StringType }
                 )
-            )
-            { backStackEntry ->
+            ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getInt("id") ?: 0
                 val title = backStackEntry.arguments?.getString("title") ?: "Título não encontrado"
                 val posterPath = backStackEntry.arguments?.getString("poster_path") ?: ""
-                DetalhesScreen(movieId = id, movieTitle = title, posterPath = posterPath)
+                val overview = backStackEntry.arguments?.getString("overview") ?: "Descrição não disponível"
+                DetalhesScreen(movieId = id, movieTitle = title, posterPath = posterPath, overview = overview)
             }
         }
     }

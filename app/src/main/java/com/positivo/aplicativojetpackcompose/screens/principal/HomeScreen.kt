@@ -85,10 +85,12 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = view
                 onItemClick = { movie ->
                     val encodedPosterPath = Uri.encode(movie.poster_path)
                     val encodedTitle = Uri.encode(movie.title)
-                    navController.navigate("detalhes/${movie.id}/$encodedTitle/$encodedPosterPath")
+                    val encodedOverview = Uri.encode(movie.overview ?: "") // Certifique-se de codificar a descrição
+                    navController.navigate("detalhes/${movie.id}/$encodedTitle/$encodedPosterPath/$encodedOverview")
                 }
             )
         }
+
     }
 }
 
