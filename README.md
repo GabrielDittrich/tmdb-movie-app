@@ -45,7 +45,7 @@ A navegação no aplicativo é estruturada da seguinte forma:
 ### Passos para rodar o projeto:
 1. Clone este repositório para o seu ambiente local:
     ```
-    git clone https://github.com/seu-usuario/aplicativo-compose-kotlin.git
+    git clone https://github.com/GabrielDittrich/aplicativo-compose-kotlin.git
 
 2. Abra o projeto no Android Studio.
 
