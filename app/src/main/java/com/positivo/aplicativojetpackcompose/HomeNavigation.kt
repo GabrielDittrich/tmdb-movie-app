@@ -1,5 +1,6 @@
 package com.app.myapplication
 
+import SeriesScreen
 import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -49,7 +50,7 @@ fun HomeNavigation() {
                 PerfilScreen(navController2)
             }
             composable(bottomNavItems[3].screenRoute) {
-                FavoritosScreen(navController2)
+                SeriesScreen(navController2)
             }
             // No NavHost
             composable(
