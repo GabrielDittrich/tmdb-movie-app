@@ -20,7 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.positivo.aplicativojetpackcompose.screens.principal.BuscaScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.DetalhesScreen
-import com.positivo.aplicativojetpackcompose.screens.principal.FavoritosScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.HomeScreen
 import com.positivo.aplicativojetpackcompose.screens.principal.PerfilScreen
 
