@@ -1,6 +1,6 @@
 # Aplicativo Compose Kotlin
-Repositório: aplicativo-compose-kotlin
-Tecnologias: Jetpack Compose, Firebase, TMDB API, Kotlin
+<strong>Repositório:</strong> aplicativo-compose-kotlin
+<strong>Tecnologias:</strong> Jetpack Compose, Firebase, TMDB API, Kotlin
 
 Este é um projeto desenvolvido como parte da avaliação final da disciplina de Aplicativos Android na Universidade Positivo. O aplicativo foi criado utilizando Jetpack Compose e Kotlin, com integração ao Firebase para funcionalidades de autenticação e à API TMDB para exibição de filmes e séries.
 
