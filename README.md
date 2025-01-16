@@ -1,4 +1,4 @@
-# Aplicativo Compose Kotlin
+# Aplicativo de Catálogo de Filme feito em Compose Kotlin
 <strong>Repositório:</strong> aplicativo-compose-kotlin
 <strong>Tecnologias:</strong> Jetpack Compose, Firebase, TMDB API, Kotlin
 
